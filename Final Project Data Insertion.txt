@@ -1,0 +1,54 @@
+Select * from ccustomer;
+Select * from Phone_Num;
+Select * from Location;
+select * from RentalOfcLoc;
+select * from CEmployee;
+Select * from Vehicle;
+Select * from Reservation;
+Select * from rese_vehicle;
+Select * from assignemp;
+
+Insert into Location (LocationID, PickupLocation) values (1, 'Home');
+Insert into Location (LocationID, PickupLocation) values (2, 'Office');
+Insert into Location (LocationID, PickupLocation) values (3, 'Home');
+Insert into Location (LocationID, PickupLocation) values (4, 'Office');
+
+Insert into Phone_Num (MobileNo, customerID) values ('856-128-8765', 1);
+Insert into Phone_Num (MobileNo, customerID) values ('789-127-9876', 2);
+Insert into Phone_Num (MobileNo, customerID) values ('987-128-8725', 3);
+Insert into Phone_Num (MobileNo, customerID) values ('845-776-9152', 4);
+
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (1, '123 mail st', 'Poughkeeps', 'NY', '12601',1);
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (2, '876 Main st', 'Poughkeeps', 'NY', '12398',2);
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (3, '144 Mill St', 'Poughkeeps', 'NY', '12698',3);
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (4, '63 Academy St', 'Poughkeeps', 'NY', '12765',4);
+
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (1, 'Kevin', 'Mill', '8762657890',123456789);
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (2, 'John', 'Miller', '877658826',876255388);
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (3, 'Rakan', 'Joe', '8976544556', 987678897);
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (4, 'Niel', 'Armstrong', '993886383', 928368829);
+
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (1, 'Dodge', 'Charger', 2015, 'Silver', 'EE55SS66',32641);
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (2, 'Honda', 'Accord', 2019, 'Red', 'NY78SS7733',12368);
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (3, 'Audi', 'A4', 2020, 'Black', 'ER87EE7777',1267);
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (4, 'Chevy', 'Malibu', 2018, 'Black', 'RT23FG1234',6654);
+
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (001, 'Sam', 'Millers', '85 Main St', 'Poughkeepise', 'NY', '12601', 'sam.millers@aol.com', 123456789);
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (002, 'Ani', 'Red', '144 Mill St', 'Poughkeepise', 'NY', '12602', 'anired@gmail.com', 234567891);
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (003, 'Aya', 'Nad', '67 Smith St', 'Poughkeepise', 'NY', '12604', 'ayanad67@yahoo.com', 345678912);
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (004, 'Krish', 'Kott', '143 Academy St', 'Poughkeepise', 'NY', '12608', 'krishkot_1@rediffmail.com', 456789123);
+
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (01,to_date('2021-01-19', 'YYYY-MM-DD'), to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 1,001,121);
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (02,to_date('2021-01-19', 'YYYY-MM-DD'), to_date('2021-01-24', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 2,002,111);
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (03,to_date('2021-01-20', 'YYYY-MM-DD'), to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 3,003,101);
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (04,to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 4,004,20);
+
+Insert into rese_vehicle (VID, reservationid) values (1, 01);
+Insert into rese_vehicle (VID, reservationid) values (2, 02);
+Insert into rese_vehicle (VID, reservationid) values (3, 03);
+Insert into rese_vehicle (VID, reservationid) values (4, 04);
+
+Insert into AssignEmp (RentalOfficeID, employeeid) values (1,1);
+Insert into AssignEmp (RentalOfficeID, employeeid) values (2,2);
+Insert into AssignEmp (RentalOfficeID, employeeid) values (3,3);
+Insert into AssignEmp (RentalOfficeID, employeeid) values (4,4);
