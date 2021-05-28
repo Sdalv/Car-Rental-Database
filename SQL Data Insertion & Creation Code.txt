@@ -1,0 +1,183 @@
+SQL Data Insertion & Creation Code
+
+CREATE TABLE ccustomer (
+    customerid       INTEGER NOT NULL,
+    custfristname    NVARCHAR2(20) NOT NULL,
+    custlastname     NVARCHAR2(20) NOT NULL,
+    streetaddress    NVARCHAR2(50),
+    city             NVARCHAR2(20),
+    state            CHAR(2),
+    zipcode          VARCHAR2(10),
+    email            NVARCHAR2(50) NOT NULL,
+    driverlicenseno  CHAR(9) NOT NULL
+);
+
+ALTER TABLE ccustomer ADD CONSTRAINT ccustomer_pk PRIMARY KEY ( customerid );
+
+Select * from ccustomer;
+
+CREATE TABLE assignemp (
+    rentalofficeid  INTEGER NOT NULL,
+    employeeid      INTEGER NOT NULL
+);
+
+ALTER TABLE assignemp ADD CONSTRAINT assiginingemployee_pk PRIMARY KEY ( rentalofficeid,
+                                                                         employeeid );
+
+
+CREATE TABLE cemployee (
+    employeeid   INTEGER NOT NULL,
+    firstname    NVARCHAR2(20) NOT NULL,
+    lastname     NVARCHAR2(20),
+    phonenumber  CHAR(10) NOT NULL,
+    ssn          INTEGER
+);
+
+ALTER TABLE cemployee ADD CONSTRAINT cemployee_pk PRIMARY KEY ( employeeid );
+
+CREATE TABLE location (
+    locationid      INTEGER NOT NULL,
+    pickuplocation  VARCHAR2(10)
+);
+
+ALTER TABLE location ADD CONSTRAINT location_pk PRIMARY KEY ( locationid );
+
+CREATE TABLE phone_num (
+    mobileno    VARCHAR2(13) NOT NULL,
+    customerid  INTEGER NOT NULL
+);
+
+ALTER TABLE phone_num ADD CONSTRAINT phone_number_pk PRIMARY KEY ( mobileno );
+
+CREATE TABLE rentalofcloc (
+    rentalofficeid  INTEGER NOT NULL,
+    streetaddress   NVARCHAR2(50) NOT NULL,
+    city            VARCHAR2(10),
+    state           CHAR(2),
+    zipcode         VARCHAR2(10),
+    locationid      INTEGER NOT NULL
+);
+
+ALTER TABLE rentalofcloc ADD CONSTRAINT rentalofficelocation_pk PRIMARY KEY ( rentalofficeid );
+
+CREATE TABLE rese_vehicle (
+    vid            INTEGER NOT NULL,
+    reservationid  INTEGER NOT NULL
+);
+
+ALTER TABLE rese_vehicle ADD CONSTRAINT reservation_vehicle_pk PRIMARY KEY ( vid,
+                                                                             reservationid );
+
+CREATE TABLE reservation (
+    reservationid  INTEGER NOT NULL,
+    date_from      DATE NOT NULL,
+    date_to        DATE NOT NULL,
+    pickuptime     DATE NOT NULL,
+    locationid     INTEGER NOT NULL,
+    customerid     INTEGER NOT NULL,
+    dailyrate      NUMBER
+);
+
+ALTER TABLE reservation ADD CONSTRAINT reservation_pk PRIMARY KEY ( reservationid );
+
+CREATE TABLE vehicle (
+    vid           INTEGER NOT NULL,
+    make          NVARCHAR2(30),
+    model         NVARCHAR2(10),
+    year          INTEGER,
+    colour        NVARCHAR2(10),
+    lisenceplate  VARCHAR2(10),
+    milage        INTEGER
+);
+
+ALTER TABLE vehicle ADD CONSTRAINT vehicle_pk PRIMARY KEY ( vid );
+
+ALTER TABLE vehicle ADD CONSTRAINT vehicle__un UNIQUE ( lisenceplate );
+
+ALTER TABLE assignemp
+    ADD CONSTRAINT assignemp_cemployee_fk FOREIGN KEY ( employeeid )
+        REFERENCES cemployee ( employeeid );
+
+ALTER TABLE assignemp
+    ADD CONSTRAINT assignemp_rentalofcloc_fk FOREIGN KEY ( rentalofficeid )
+        REFERENCES rentalofcloc ( rentalofficeid );
+
+ALTER TABLE phone_num
+    ADD CONSTRAINT phone_number_customer_fk FOREIGN KEY ( customerid )
+        REFERENCES ccustomer ( customerid );
+
+ 
+ALTER TABLE rentalofcloc
+    ADD CONSTRAINT rentalofficelocation_location_fk FOREIGN KEY ( locationid )
+        REFERENCES location ( locationid );
+
+ALTER TABLE rese_vehicle
+    ADD CONSTRAINT rese_vehicle_reservation_fk FOREIGN KEY ( reservationid )
+        REFERENCES reservation ( reservationid );
+
+ALTER TABLE reservation
+    ADD CONSTRAINT reservation_customer_fk FOREIGN KEY ( customerid )
+        REFERENCES ccustomer ( customerid );
+
+ALTER TABLE reservation
+    ADD CONSTRAINT reservation_location_fk FOREIGN KEY ( locationid )
+        REFERENCES location ( locationid );
+
+ALTER TABLE rese_vehicle
+    ADD CONSTRAINT reservation_vehicle_vehicle_fk FOREIGN KEY ( vid )
+        REFERENCES vehicle ( vid );
+
+Select * from ccustomer;
+Select * from Phone_Num;
+Select * from Location;
+select * from RentalOfcLoc;
+select * from CEmployee;
+Select * from Vehicle;
+Select * from Reservation;
+Select * from rese_vehicle;
+Select * from assignemp;
+
+Insert into Location (LocationID, PickupLocation) values (1, 'Home');
+Insert into Location (LocationID, PickupLocation) values (2, 'Office');
+Insert into Location (LocationID, PickupLocation) values (3, 'Home');
+Insert into Location (LocationID, PickupLocation) values (4, 'Office');
+
+Insert into Phone_Num (MobileNo, customerID) values ('856-128-8765', 1);
+Insert into Phone_Num (MobileNo, customerID) values ('789-127-9876', 2);
+Insert into Phone_Num (MobileNo, customerID) values ('987-128-8725', 3);
+Insert into Phone_Num (MobileNo, customerID) values ('845-776-9152', 4);
+
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (1, '123 mail st', 'Poughkeeps', 'NY', '12601',1);
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (2, '876 Main st', 'Poughkeeps', 'NY', '12398',2);
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (3, '144 Mill St', 'Poughkeeps', 'NY', '12698',3);
+Insert into RentalOfcLoc (RentalOfficeID, StreetAddress, City, State, ZipCode, LocationID) values (4, '63 Academy St', 'Poughkeeps', 'NY', '12765',4);
+
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (1, 'Kevin', 'Mill', '8762657890',123456789);
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (2, 'John', 'Miller', '877658826',876255388);
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (3, 'Rakan', 'Joe', '8976544556', 987678897);
+Insert into CEmployee (EmployeeID, FirstName, LastName, PhoneNumber, SSN) values (4, 'Niel', 'Armstrong', '993886383', 928368829);
+
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (1, 'Dodge', 'Charger', 2015, 'Silver', 'EE55SS66',32641);
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (2, 'Honda', 'Accord', 2019, 'Red', 'NY78SS7733',12368);
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (3, 'Audi', 'A4', 2020, 'Black', 'ER87EE7777',1267);
+Insert into Vehicle (VID, Make, Model, Year, Colour, Lisenceplate, Milage) values (4, 'Chevy', 'Malibu', 2018, 'Black', 'RT23FG1234',6654);
+
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (001, 'Sam', 'Millers', '85 Main St', 'Poughkeepise', 'NY', '12601', 'sam.millers@aol.com', 123456789);
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (002, 'Ani', 'Red', '144 Mill St', 'Poughkeepise', 'NY', '12602', 'anired@gmail.com', 234567891);
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (003, 'Aya', 'Nad', '67 Smith St', 'Poughkeepise', 'NY', '12604', 'ayanad67@yahoo.com', 345678912);
+Insert into Ccustomer (customerID, CustFristName, CustLastName, StreetAddress, City, State, ZipCode, email, DriverLicenseNo) values (004, 'Krish', 'Kott', '143 Academy St', 'Poughkeepise', 'NY', '12608', 'krishkot_1@rediffmail.com', 456789123);
+
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (01,to_date('2021-01-19', 'YYYY-MM-DD'), to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 1,001,121);
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (02,to_date('2021-01-19', 'YYYY-MM-DD'), to_date('2021-01-24', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 2,002,111);
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (03,to_date('2021-01-20', 'YYYY-MM-DD'), to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 3,003,101);
+Insert into reservation (ReservationID, date_from, Date_To, pickuptime, LocationID, CustomerID, DailyRate) values (04,to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-23', 'YYYY-MM-DD'), to_date('2021-01-19', 'YYYY-MM-DD'), 4,004,20);
+
+Insert into rese_vehicle (VID, reservationid) values (1, 01);
+Insert into rese_vehicle (VID, reservationid) values (2, 02);
+Insert into rese_vehicle (VID, reservationid) values (3, 03);
+Insert into rese_vehicle (VID, reservationid) values (4, 04);
+
+Insert into AssignEmp (RentalOfficeID, employeeid) values (1,1);
+Insert into AssignEmp (RentalOfficeID, employeeid) values (2,2);
+Insert into AssignEmp (RentalOfficeID, employeeid) values (3,3);
+Insert into AssignEmp (RentalOfficeID, employeeid) values (4,4);
